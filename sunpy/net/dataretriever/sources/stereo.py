@@ -101,10 +101,10 @@ class SEPTClient(GenericClient):
         """
         Helper Function:used to hold information about source.
         """
-        self.map_['source']     = 'university of kiel'
-        self.map_['instrument'] = 'stereo/sept'
-        self.map_['phyobs']     = 'electron intensities'
-        self.map_['provider']   = 'ieap'
+		self.map_['source']     = 'university of kiel'
+		self.map_['instrument'] = 'stereo/sept'
+		self.map_['phyobs']     = 'electron intensities'
+		self.map_['provider']   = 'ieap'
 
 
     @classmethod
@@ -175,14 +175,14 @@ class HETClient(GenericClient):
         dict_spacecraft   = {'Ahead': 'AeH', 'Behind': 'BeH'}
 
         #Parameter Validations
-        if timerange.start < datetime.datetime(2006,12,01):
-        	raise ValueError('Earliest date for which HET data is available is 2006-12-01')
-
-        if stereo_spacecraft not in possible_spacecraft:
-        	raise ValueError('Possible stereo_spacecraft values: ' + ','.join(possible_spacecraft))
-
-        if duration_of_average not in possible_duration:
-        	raise ValueError('Possible duration_of_average values as astropy unit quantities: ' + ','.join([str(i) for i in possible_duration]))
+	if timerange.start < datetime.datetime(2006,12,01):
+		raise ValueError('Earliest date for which HET data is available is 2006-12-01')
+	
+	if stereo_spacecraft not in possible_spacecraft:
+		raise ValueError('Possible stereo_spacecraft values: ' + ','.join(possible_spacecraft))
+	
+	if duration_of_average not in possible_duration:
+		raise ValueError('Possible duration_of_average values as astropy unit quantities: ' + ','.join([str(i) for i in possible_duration]))
 
 
         stereo_spacecraft = stereo_spacecraft.capitalize()
@@ -196,41 +196,41 @@ class HETClient(GenericClient):
 
         return file_scraper.filelist(timerange)
 
-    def _makeimap(self):
-        """
-        Helper Function:used to hold information about source.
-        """
-        self.map_['source']     = 'srl caltech'
-        self.map_['instrument'] = 'stereo/het'
-        self.map_['phyobs']     = 'electron flux'
-        self.map_['provider']   = 'solar terrestrial relations observatory '
+	def _makeimap(self):
+		"""
+		Helper Function:used to hold information about source.
+		"""
+		self.map_['source']     = 'srl caltech'
+		self.map_['instrument'] = 'stereo/het'
+		self.map_['phyobs']     = 'electron flux'
+		self.map_['provider']   = 'solar terrestrial relations observatory '
 
-    @classmethod
-    def _can_handle_query(cls, *query):
-        """
-        Answers whether client can service the query.
-        Parameters
-        ----------
-        query : list of query objects
-        Returns
-        -------
-        boolean
-            answer as to whether client can service the query
-            
-        """
-        chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration']
-        chklist =  [x.__class__.__name__ in chkattr for x in query]
-        for x in query:
-            if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/het':
-                return all(chklist)
-        return False
+	@classmethod
+	def _can_handle_query(cls, *query):
+		"""
+		Answers whether client can service the query.
+		Parameters
+		----------
+		query : list of query objects
+		Returns
+		-------
+		boolean
+		    answer as to whether client can service the query
+		    
+		"""
+		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration']
+		chklist =  [x.__class__.__name__ in chkattr for x in query]
+		for x in query:
+		    if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/het':
+		        return all(chklist)
+		return False
 
-    """
-    print _get_url_for_timerange(TimeRange('2007-03-01','2007-06-01'))
-    print _get_url_for_timerange(TimeRange('2007-03-01','2007-06-01'), stereo_spacecraft = 'behind' , duration_of_average = 1*u.d)
-    print _get_url_for_timerange(TimeRange('2007-03-01','2007-06-01'), duration_of_average = 12*u.h)
-
-    """
+	"""
+	print _get_url_for_timerange(TimeRange('2007-03-01','2007-06-01'))
+	print _get_url_for_timerange(TimeRange('2007-03-01','2007-06-01'), stereo_spacecraft = 'behind' , duration_of_average = 1*u.d)
+	print _get_url_for_timerange(TimeRange('2007-03-01','2007-06-01'), duration_of_average = 12*u.h)
+	
+	"""
 
 
 
@@ -309,38 +309,38 @@ class SITClient(GenericClient):
 		return file_scraper.filelist(timerange)
 
 	def _makeimap(self):
-	    """
-	    Helper Function:used to hold information about source.
-	    """
-	    self.map_['source']     = 'srl caltech'
-	    self.map_['instrument'] = 'stereo/sit'
-	    self.map_['phyobs']     = 'atomic intensities'
-	    self.map_['provider']   = 'solar terrestrial relations observatory '
+		"""
+		Helper Function:used to hold information about source.
+		"""
+		self.map_['source']     = 'srl caltech'
+		self.map_['instrument'] = 'stereo/sit'
+		self.map_['phyobs']     = 'atomic intensities'
+		self.map_['provider']   = 'solar terrestrial relations observatory '
 
 	@classmethod
 	def _can_handle_query(cls, *query):
-	    """
-	    Answers whether client can service the query.
-	    Parameters
-	    ----------
-	    query : list of query objects
-	    Returns
-	    -------
-	    boolean
-	        answer as to whether client can service the query
-	        
-	    """
-	    chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie' ]
-	    chklist =  [x.__class__.__name__ in chkattr for x in query]
-	    for x in query:
-	        if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sit':
-	            return all(chklist)
-	    return False
-
+		"""
+		Answers whether client can service the query.
+		Parameters
+		----------
+		query : list of query objects
+		Returns
+		-------
+		boolean
+		answer as to whether client can service the query
+		
+		"""
+		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie' ]
+		chklist =  [x.__class__.__name__ in chkattr for x in query]
+		for x in query:
+		if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sit':
+		    return all(chklist)
+		return False
+		
 	"""
 	print _get_url_for_timerange(TimeRange('2007-02-04','2009-03-01')) 
 	print _get_url_for_timerange(TimeRange('2007-02-04','2009-03-01'), stereo_spacecraft = 'behind', atomic_specie ='O', duration_of_average = 1*u.d) 
-
+	
 	"""
 
 
@@ -406,37 +406,37 @@ class PLASTICClient(GenericClient):
 		return file_scraper.filelist(timerange)
 
 	def _makeimap(self):
-	    """
-	    Helper Function:used to hold information about source.
-	    """
-	    self.map_['source']     = 'nasa'
-        self.map_['instrument'] = 'stereo/plastic'
-        self.map_['phyobs']     = '1d maxwellian proton moments'
-        self.map_['provider']   = 'stereo science center'
+		"""
+		Helper Function:used to hold information about source.
+		"""
+		self.map_['source']     = 'nasa'
+		self.map_['instrument'] = 'stereo/plastic'
+		self.map_['phyobs']     = '1d maxwellian proton moments'
+		self.map_['provider']   = 'stereo science center'
 
 	@classmethod
 	def _can_handle_query(cls, *query):
-	    """
-	    Answers whether client can service the query.
-	    Parameters
-	    ----------
-	    query : list of query objects
-	    Returns
-	    -------
-	    boolean
-	        answer as to whether client can service the query
-	        
-	    """
-	    chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration']
-	    chklist =  [x.__class__.__name__ in chkattr for x in query]
-	    for x in query:
-	        if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/plastic':
-	            return all(chklist)
-	    return False
+		"""
+		Answers whether client can service the query.
+		Parameters
+		----------
+		query : list of query objects
+		Returns
+		-------
+		boolean
+		answer as to whether client can service the query
+		
+		"""
+		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration']
+		chklist =  [x.__class__.__name__ in chkattr for x in query]
+		for x in query:
+		if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/plastic':
+		    return all(chklist)
+		return False
 
 	"""
 	print _get_url_for_timerange(TimeRange('2008-03-01','2008-06-01'), stereo_spacecraft = 'behind')
-
+	
 	"""
 
 
@@ -483,37 +483,37 @@ class MAGClient(GenericClient):
 		return file_scraper.filelist(timerange)
 
 	def _makeimap(self):
-	    """
-	    Helper Function:used to hold information about source.
-	    """
-	    self.map_['source']     = 'ssl berkeley'
-        self.map_['instrument'] = 'stereo/mag'
-        self.map_['phyobs']     = 'vector magnetic field'
-        self.map_['provider']   = 'solar terrestrial relations observatory'
+		"""
+		Helper Function:used to hold information about source.
+		"""
+		self.map_['source']     = 'ssl berkeley'
+		self.map_['instrument'] = 'stereo/mag'
+		self.map_['phyobs']     = 'vector magnetic field'
+		self.map_['provider']   = 'solar terrestrial relations observatory'
 
 	@classmethod
 	def _can_handle_query(cls, *query):
-	    """
-	    Answers whether client can service the query.
-	    Parameters
-	    ----------
-	    query : list of query objects
-	    Returns
-	    -------
-	    boolean
-	        answer as to whether client can service the query
-	        
-	    """
-	    chkattr =  ['Time', 'Instrument', 'Spacecraft']
-	    chklist =  [x.__class__.__name__ in chkattr for x in query]
-	    for x in query:
-	        if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/mag':
-	            return all(chklist)
-	    return False
+		"""
+		Answers whether client can service the query.
+		Parameters
+		----------
+		query : list of query objects
+		Returns
+		-------
+		boolean
+		answer as to whether client can service the query
+		
+		"""
+		chkattr =  ['Time', 'Instrument', 'Spacecraft']
+		chklist =  [x.__class__.__name__ in chkattr for x in query]
+		for x in query:
+		if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/mag':
+		    return all(chklist)
+		return False
 
 	"""
 	print _get_url_for_timerange(TimeRange('2007-01-01','2009-01-01'), stereo_spacecraft = 'behind')
-
+	
 	"""
 
 	
@@ -637,36 +637,36 @@ class LETClient(GenericClient):
 
 
 	def _makeimap(self):
-	    """
-	    Helper Function:used to hold information about source.
-	    """
-	    self.map_['source']     = 'srl caltech'
-        self.map_['instrument'] = 'stereo/let'
-        self.map_['phyobs']     = 'atomic intensities'
-        self.map_['provider']   = 'solar terrestrial relations observatory '
+		"""
+		Helper Function:used to hold information about source.
+		"""
+		self.map_['source']     = 'srl caltech'
+		self.map_['instrument'] = 'stereo/let'
+		self.map_['phyobs']     = 'atomic intensities'
+		self.map_['provider']   = 'solar terrestrial relations observatory '
 
 	@classmethod
 	def _can_handle_query(cls, *query):
-	    """
-	    Answers whether client can service the query.
-	    Parameters
-	    ----------
-	    query : list of query objects
-	    Returns
-	    -------
-	    boolean
-	        answer as to whether client can service the query
-	        
-	    """
-	    chkattr =  ['Timerange', 'Instrument', 'Average Duration', 'Datatype', 'Specie', 'Spacecraft']
-	    chklist =  [x.__class__.__name__ in chkattr for x in query]
-	    for x in query:
-	        if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/let':
-	            return all(chklist)
-	    return False
+		"""
+		Answers whether client can service the query.
+		Parameters
+		----------
+		query : list of query objects
+		Returns
+		-------
+		boolean
+		answer as to whether client can service the query
+		
+		"""
+		chkattr =  ['Timerange', 'Instrument', 'Average Duration', 'Datatype', 'Specie', 'Spacecraft']
+		chklist =  [x.__class__.__name__ in chkattr for x in query]
+		for x in query:
+		if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/let':
+		    return all(chklist)
+		return False
 
 	"""
 	print _get_url_for_timerange(TimeRange('2007-01-01','2008-06-01'), stereo_spacecraft = 'ahead', duration_of_average = 27*u.d, type_of_data = 'summed', specie = 'Al')
-
+	
 	"""
 
