@@ -109,35 +109,35 @@ class ERNEClient(GenericClient):
 		return filelists
 
 	def _makeimap(self):
-	    """
-	    Helper Function:used to hold information about source.
-	    """
-	    self.map_['source']     = 'university of turku'
-	    self.map_['instrument'] = 'soho/erne'
-	    self.map_['phyobs']     = 'proton and alpha particle intensities'
-	    self.map_['provider']   = 'space research laboratory'
+		"""
+		Helper Function:used to hold information about source.
+		"""
+		self.map_['source']     = 'university of turku'
+		self.map_['instrument'] = 'soho/erne'
+		self.map_['phyobs']     = 'proton and alpha particle intensities'
+		self.map_['provider']   = 'space research laboratory'
 
 	@classmethod
 	def _can_handle_query(cls, *query):
-	    """
-	    Answers whether client can service the query.
-	    Parameters
-	    ----------
-	    query : list of query objects
-	    Returns
-	    -------
-	    boolean
-	        answer as to whether client can service the query
-	        
-	    """
-	    chkattr =  ['Timerange', 'Instrument', 'Specie']
-	    chklist =  [x.__class__.__name__ in chkattr for x in query]
-	    for x in query:
-	        if x.__class__.__name__ == 'Instrument' and x.value == 'soho/erne':
-	            return all(chklist)
-	    return False
-
+		"""
+		Answers whether client can service the query.
+		Parameters
+		----------
+		query : list of query objects
+		Returns
+		-------
+		boolean
+		answer as to whether client can service the query
+		
+		"""
+		chkattr =  ['Timerange', 'Instrument', 'Specie']
+		chklist =  [x.__class__.__name__ in chkattr for x in query]
+		for x in query:
+		if x.__class__.__name__ == 'Instrument' and x.value == 'soho/erne':
+		    return all(chklist)
+		return False
+		
 	"""
 	print _get_url_for_timerange(timerange = TimeRange('1998-03-01','2003-07-02'), specie = 'alpha')
-
+	
 	"""
