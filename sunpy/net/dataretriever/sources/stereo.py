@@ -517,7 +517,6 @@ class MAGClient(GenericClient):
 	"""
 
 	
-
 class LETClient(GenericClient):
 
 	def _get_url_for_timerange(timerange, duration_of_average, type_of_data , specie, stereo_spacecraft = 'ahead'):
