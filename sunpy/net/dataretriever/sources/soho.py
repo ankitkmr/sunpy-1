@@ -132,7 +132,7 @@ class ERNEClient(GenericClient):
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 		if x.__class__.__name__ == 'Instrument' and x.value == 'soho/erne':
-		    return all(chklist)
+			return all(chklist)
 		return False
 		
 	"""
