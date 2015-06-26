@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""SOHO Dataretriever sources subclass definitions"""
+"""SOHO LightCurve sources subclass definitions"""
 
 __authors__ = ["Ankit Kumar"]
 __email__   = "ankitkmr.iitk@gmail.com"
