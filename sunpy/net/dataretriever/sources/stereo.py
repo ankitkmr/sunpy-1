@@ -352,7 +352,7 @@ class PLASTICClient(GenericClient):
 							   			duration_of_average = 10*u.min):
 		"""
 		Returns list of URLS to STEREO PLASTIC data files corresponding to value of input timerange.
-		URL Source : http://www2.physik.uni-kiel.de/stereo/data/sept/level2/
+		URL Source : http://stereo-ssc.nascom.nasa.gov/data/ins_data/plastic/level2/Protons/ASCII/
 
 		The earliest data available is from 2007.
 
