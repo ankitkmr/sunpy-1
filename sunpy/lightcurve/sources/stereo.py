@@ -66,43 +66,43 @@ class LETLightCurve(LightCurve):
 
     """
 
-    # def peek(self, title="GOES Xray Flux"):
-    #     """Plots GOES light curve is the usual manner"""
-    #     figure = plt.figure()
-    #     axes = plt.gca()
+	# def peek(self, title="GOES Xray Flux"):
+	#     """Plots GOES light curve is the usual manner"""
+	#     figure = plt.figure()
+	#     axes = plt.gca()
 
-    #     dates = matplotlib.dates.date2num(parse_time(self.data.index))
+	#     dates = matplotlib.dates.date2num(parse_time(self.data.index))
 
-    #     axes.plot_date(dates, self.data['xrsa'], '-',
-    #                  label='0.5--4.0 $\AA$', color='blue', lw=2)
-    #     axes.plot_date(dates, self.data['xrsb'], '-',
-    #                  label='1.0--8.0 $\AA$', color='red', lw=2)
+	#     axes.plot_date(dates, self.data['xrsa'], '-',
+	#                  label='0.5--4.0 $\AA$', color='blue', lw=2)
+	#     axes.plot_date(dates, self.data['xrsb'], '-',
+	#                  label='1.0--8.0 $\AA$', color='red', lw=2)
 
-    #     axes.set_yscale("log")
-    #     axes.set_ylim(1e-9, 1e-2)
-    #     axes.set_title(title)
-    #     axes.set_ylabel('Watts m$^{-2}$')
-    #     axes.set_xlabel(datetime.datetime.isoformat(self.data.index[0])[0:10])
+	#     axes.set_yscale("log")
+	#     axes.set_ylim(1e-9, 1e-2)
+	#     axes.set_title(title)
+	#     axes.set_ylabel('Watts m$^{-2}$')
+	#     axes.set_xlabel(datetime.datetime.isoformat(self.data.index[0])[0:10])
 
-    #     ax2 = axes.twinx()
-    #     ax2.set_yscale("log")
-    #     ax2.set_ylim(1e-9, 1e-2)
-    #     ax2.set_yticks((1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2))
-    #     ax2.set_yticklabels((' ', 'A', 'B', 'C', 'M', 'X', ' '))
+	#     ax2 = axes.twinx()
+	#     ax2.set_yscale("log")
+	#     ax2.set_ylim(1e-9, 1e-2)
+	#     ax2.set_yticks((1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2))
+	#     ax2.set_yticklabels((' ', 'A', 'B', 'C', 'M', 'X', ' '))
 
-    #     axes.yaxis.grid(True, 'major')
-    #     axes.xaxis.grid(False, 'major')
-    #     axes.legend()
+	#     axes.yaxis.grid(True, 'major')
+	#     axes.xaxis.grid(False, 'major')
+	#     axes.legend()
 
-    #     # @todo: display better tick labels for date range (e.g. 06/01 - 06/05)
-    #     formatter = matplotlib.dates.DateFormatter('%H:%M')
-    #     axes.xaxis.set_major_formatter(formatter)
+	#     # @todo: display better tick labels for date range (e.g. 06/01 - 06/05)
+	#     formatter = matplotlib.dates.DateFormatter('%H:%M')
+	#     axes.xaxis.set_major_formatter(formatter)
 
-    #     axes.fmt_xdata = matplotlib.dates.DateFormatter('%H:%M')
-    #     figure.autofmt_xdate()
-    #     figure.show()
+	#     axes.fmt_xdata = matplotlib.dates.DateFormatter('%H:%M')
+	#     figure.autofmt_xdate()
+	#     figure.show()
 
-    #     return figure
+	#     return figure
 
 
     @staticmethod
@@ -286,62 +286,62 @@ class SITLightCurve(LightCurve):
     #     return figure
 
 
-    @staticmethod
+	@staticmethod
 	def _parse_txt(filepath):
-	    """
-	    Parses a STEREO SIT file from
-	    http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
-
-	    """
-	    header = []
-	    data = ascii.read(filepath, delimiter = "\s", data_start = 27) 
-
-	    # To read column names
-	    data_all = open(filepath)
-	    for i, line in enumerate(data_all):
-	        if i > 13 :
-	             header = header + [line]
-	        if i > 23:
-	            break
-	    data_all.close()
-
-	    for i in range(10):
-	        header[i] = "Column " + str(i+2) + header[i][ header[i].index(":") :] 
-
-	    header = ['DateTime'] + header
-
-	    #To format column names 
-	    for key1 in range(11,21):
-	        if key1 <14:
-	            header = header + ["Column "+ str(key1) + ': ' +'4He total counts for '+ (header[key1-10])[11:28] +' energy range']  
-	        else:
-	            header = header + ["Column "+ str(key1) + ': ' +'4He total counts for '+ (header[key1-10])[12:29] +' energy range']  
-
-
-	    data_modify = []
-
-	    for i in range(len(data)): 
-	        date = datetime(data['col1'][i], 1, 1) + timedelta(int(data['col2'][i]) - 1)
-	        data_modify = data_modify + [datetime(date.year, date.month, date.day, data['col3'][i], data['col4'][i], data['col5'][i])]
-
-
-	    data.add_column(Column(data = data_modify, name='col'),1)
-	    data.remove_columns(['col1', 'col2','col3','col4','col5'])
-
-
-	    #To add the column names in the astropy table object
-	    for key2 in range(21):
-	        data.rename_column(data.colnames[key2], header[key2])        
-
-	    #Converting from astropy.table.Table to pandas.Dataframe
-	    # to_pandas() bound method is only available in the latest development build and none of the stable
-	    data = data.to_pandas()
-	    
-	    return header, data
+		"""
+		Parses a STEREO SIT file from
+		http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
+		
+		"""
+		header = []
+		data = ascii.read(filepath, delimiter = "\s", data_start = 27) 
+		
+		# To read column names
+		data_all = open(filepath)
+		for i, line in enumerate(data_all):
+		    if i > 13 :
+		         header = header + [line]
+		    if i > 23:
+		        break
+		data_all.close()
+		
+		for i in range(10):
+		    header[i] = "Column " + str(i+2) + header[i][ header[i].index(":") :] 
+		
+		header = ['DateTime'] + header
+		
+		#To format column names 
+		for key1 in range(11,21):
+		    if key1 <14:
+		        header = header + ["Column "+ str(key1) + ': ' +'4He total counts for '+ (header[key1-10])[11:28] +' energy range']  
+		    else:
+		        header = header + ["Column "+ str(key1) + ': ' +'4He total counts for '+ (header[key1-10])[12:29] +' energy range']  
+		
+		
+		data_modify = []
+		
+		for i in range(len(data)): 
+		    date = datetime(data['col1'][i], 1, 1) + timedelta(int(data['col2'][i]) - 1)
+		    data_modify = data_modify + [datetime(date.year, date.month, date.day, data['col3'][i], data['col4'][i], data['col5'][i])]
+		
+		
+		data.add_column(Column(data = data_modify, name='col'),1)
+		data.remove_columns(['col1', 'col2','col3','col4','col5'])
+		
+		
+		#To add the column names in the astropy table object
+		for key2 in range(21):
+		    data.rename_column(data.colnames[key2], header[key2])        
+		
+		#Converting from astropy.table.Table to pandas.Dataframe
+		# to_pandas() bound method is only available in the latest development build and none of the stable
+		data = data.to_pandas()
+		
+		return header, data
 
 	"""
 	_parse_txt('SIT_Ahead_10min_4He_2007_01.txt') 
-
+	
 	"""
 
 
