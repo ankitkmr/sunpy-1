@@ -130,36 +130,36 @@ class LETLightCurve(LightCurve):
 				else:
 					continue
 	
-		# To figure out and customise header in case of 27 day type of data
-		if type_of_data == '27day':
-		if line[:3] == 'Bin':
-			header = header + [line]
-			continue
-		elif line[:7] == 'Columns':
-			data_start = i + 4
-			data_points = int(line[20])
-			
-			for k in range(data_points):
-				header = header + ['Uncertainty for ' + header[k]]
-				header[k] = 'Flux for ' + header[k]
-			
-			header = ['Datetime'] + header
-			break
-	       
-		# To figure out and customise header in case of any other type of data since their files are formatted 
-		# similarly but different from 27 day type of data
-		else:
-		if data_read['header_line_reached'] == False and line[:6] != 'Column':
-			continue
-		elif line[:6] == 'Column':
-			header = header + [line]
-			data_read['header_line_reached'] = True
-			continue
-		elif line == 'BEGIN DATA\n':
-			data_start = i+1
-			break      
+			# To figure out and customise header in case of 27 day type of data
+			if type_of_data == '27day':
+			if line[:3] == 'Bin':
+				header = header + [line]
+				continue
+			elif line[:7] == 'Columns':
+				data_start = i + 4
+				data_points = int(line[20])
+				
+				for k in range(data_points):
+					header = header + ['Uncertainty for ' + header[k]]
+					header[k] = 'Flux for ' + header[k]
+				
+				header = ['Datetime'] + header
+				break
+		       
+			# To figure out and customise header in case of any other type of data since their files are formatted 
+			# similarly but different from 27 day type of data
+			else:
+				if data_read['header_line_reached'] == False and line[:6] != 'Column':
+					continue
+				elif line[:6] == 'Column':
+					header = header + [line]
+					data_read['header_line_reached'] = True
+					continue
+				elif line == 'BEGIN DATA\n':
+					data_start = i+1
+					break      
 		fp.close()
-	
+		
 		#Reading in Data only, using default i.e. 0 value for data_start keyword since all lines before data are commented
 		data = ascii.read(filepath, delimiter = "\s", data_start = data_start) 
 		
