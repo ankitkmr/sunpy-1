@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """STEREO LightCurve sources subclass definitions"""
+from __future__ import absolute_import
 
 __authors__ = ["Ankit Kumar"]
 __email__ = "ankitkmr.iitk@gmail.com"
@@ -8,7 +9,6 @@ __email__ = "ankitkmr.iitk@gmail.com"
 # Google Summer of Code 2015
 
 
-from __future__ import absolute_import
 from datetime import timedelta,datetime
 
 from astropy.io import ascii
@@ -211,138 +211,139 @@ class LETLightCurve(LightCurve):
 
 
 class SITLightCurve(LightCurve):
-    """
-    SIT LightCurve. Provides SIT data back to 2007-07.
-    Most recent data is usually available one or two days late.
+	"""
+	SIT LightCurve. Provides SIT data back to 2007-07.
+	Most recent data is usually available one or two days late.
 
-    Parameters
-    ----------
-        timerange: sunpy.time.TimeRange
-            time range for which data is to be downloaded.
-            Example value -  TimeRange('2007-01-01','2015-03-01')   
+	Parameters
+	----------
+	    timerange: sunpy.time.TimeRange
+	        time range for which data is to be downloaded.
+	        Example value -  TimeRange('2007-01-01','2015-03-01')   
 
-        stereo_spacecraft: string   
-            Default value - ahead
-            Possible values - ahead, behind    # corresponding to spacecraft location
+	    stereo_spacecraft: string   
+	        Default value - ahead
+	        Possible values - ahead, behind    # corresponding to spacecraft location
 
-        atomic_specie:  string
-            Default value - 4He
-            Possible values - 4He, Fe, H, O
+	    atomic_specie:  string
+	        Default value - 4He
+	        Possible values - 4He, Fe, H, O
 
-        duration_of_average: string
-        Default value - 15min
-            Possible values - 1min, 10min, 1hr, 1day        #corresponding to duration over which data is averaged
-
-
-    Examples
-    --------
-    >>> from sunpy import lightcurve as lc
-    >>> from sunpy.time import TimeRange
-    >>> sit = lc.SITLightCurve.create(TimeRange('2012/06/01', '2012/06/05'), stereo_spacecraft = "ahead",
-    									duration_of_average =  "1min", atomic_specie = "4He")
-    
-    References
-    ----------
-    | http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
-
-    """
-    
-    # def peek(self, title="GOES Xray Flux"):
-    #     """Plots GOES light curve is the usual manner"""
-    #     figure = plt.figure()
-    #     axes = plt.gca()
-
-    #     dates = matplotlib.dates.date2num(parse_time(self.data.index))
-
-    #     axes.plot_date(dates, self.data['xrsa'], '-',
-    #                  label='0.5--4.0 $\AA$', color='blue', lw=2)
-    #     axes.plot_date(dates, self.data['xrsb'], '-',
-    #                  label='1.0--8.0 $\AA$', color='red', lw=2)
-
-    #     axes.set_yscale("log")
-    #     axes.set_ylim(1e-9, 1e-2)
-    #     axes.set_title(title)
-    #     axes.set_ylabel('Watts m$^{-2}$')
-    #     axes.set_xlabel(datetime.datetime.isoformat(self.data.index[0])[0:10])
-
-    #     ax2 = axes.twinx()
-    #     ax2.set_yscale("log")
-    #     ax2.set_ylim(1e-9, 1e-2)
-    #     ax2.set_yticks((1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2))
-    #     ax2.set_yticklabels((' ', 'A', 'B', 'C', 'M', 'X', ' '))
-
-    #     axes.yaxis.grid(True, 'major')
-    #     axes.xaxis.grid(False, 'major')
-    #     axes.legend()
-
-    #     # @todo: display better tick labels for date range (e.g. 06/01 - 06/05)
-    #     formatter = matplotlib.dates.DateFormatter('%H:%M')
-    #     axes.xaxis.set_major_formatter(formatter)
-
-    #     axes.fmt_xdata = matplotlib.dates.DateFormatter('%H:%M')
-    #     figure.autofmt_xdate()
-    #     figure.show()
-
-    #     return figure
+	    duration_of_average: string
+	    Default value - 15min
+	        Possible values - 1min, 10min, 1hr, 1day        #corresponding to duration over which data is averaged
 
 
-    @staticmethod
-	def _parse_txt(filepath):
-	    """
-	    Parses a STEREO SIT file from
-	    http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
+	Examples
+	--------
+	>>> from sunpy import lightcurve as lc
+	>>> from sunpy.time import TimeRange
+	>>> sit = lc.SITLightCurve.create(TimeRange('2012/06/01', '2012/06/05'), stereo_spacecraft = "ahead",
+										duration_of_average =  "1min", atomic_specie = "4He")
 
-	    """
-	    header = []
-	    data = ascii.read(filepath, delimiter = "\s", data_start = 27) 
-
-	    # To read column names
-	    data_all = open(filepath)
-	    for i, line in enumerate(data_all):
-	        if i > 13 :
-	             header = header + [line]
-	        if i > 23:
-	            break
-	    data_all.close()
-
-	    for i in range(10):
-	        header[i] = "Column " + str(i+2) + header[i][ header[i].index(":") :] 
-
-	    header = ['DateTime'] + header
-
-	    #To format column names 
-	    for key1 in range(11,21):
-	        if key1 <14:
-	            header = header + ["Column "+ str(key1) + ': ' +'4He total counts for '+ (header[key1-10])[11:28] +' energy range']  
-	        else:
-	            header = header + ["Column "+ str(key1) + ': ' +'4He total counts for '+ (header[key1-10])[12:29] +' energy range']  
-
-
-	    data_modify = []
-
-	    for i in range(len(data)): 
-	        date = datetime(data['col1'][i], 1, 1) + timedelta(int(data['col2'][i]) - 1)
-	        data_modify = data_modify + [datetime(date.year, date.month, date.day, data['col3'][i], data['col4'][i], data['col5'][i])]
-
-
-	    data.add_column(Column(data = data_modify, name='col'),1)
-	    data.remove_columns(['col1', 'col2','col3','col4','col5'])
-
-
-	    #To add the column names in the astropy table object
-	    for key2 in range(21):
-	        data.rename_column(data.colnames[key2], header[key2])        
-
-	    #Converting from astropy.table.Table to pandas.Dataframe
-	    # to_pandas() bound method is only available in the latest development build and none of the stable
-	    data = data.to_pandas()
-	    
-	    return header, data
+	References
+	----------
+	| http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
 
 	"""
-	_parse_txt('SIT_Ahead_10min_4He_2007_01.txt') 
 
-	"""
+	# def peek(self, title="GOES Xray Flux"):
+	#     """Plots GOES light curve is the usual manner"""
+	#     figure = plt.figure()
+	#     axes = plt.gca()
+
+	#     dates = matplotlib.dates.date2num(parse_time(self.data.index))
+
+	#     axes.plot_date(dates, self.data['xrsa'], '-',
+	#                  label='0.5--4.0 $\AA$', color='blue', lw=2)
+	#     axes.plot_date(dates, self.data['xrsb'], '-',
+	#                  label='1.0--8.0 $\AA$', color='red', lw=2)
+
+	#     axes.set_yscale("log")
+	#     axes.set_ylim(1e-9, 1e-2)
+	#     axes.set_title(title)
+	#     axes.set_ylabel('Watts m$^{-2}$')
+	#     axes.set_xlabel(datetime.datetime.isoformat(self.data.index[0])[0:10])
+
+	#     ax2 = axes.twinx()
+	#     ax2.set_yscale("log")
+	#     ax2.set_ylim(1e-9, 1e-2)
+	#     ax2.set_yticks((1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2))
+	#     ax2.set_yticklabels((' ', 'A', 'B', 'C', 'M', 'X', ' '))
+
+	#     axes.yaxis.grid(True, 'major')
+	#     axes.xaxis.grid(False, 'major')
+	#     axes.legend()
+
+	#     # @todo: display better tick labels for date range (e.g. 06/01 - 06/05)
+	#     formatter = matplotlib.dates.DateFormatter('%H:%M')
+	#     axes.xaxis.set_major_formatter(formatter)
+
+	#     axes.fmt_xdata = matplotlib.dates.DateFormatter('%H:%M')
+	#     figure.autofmt_xdate()
+	#     figure.show()
+
+	#     return figure
+
+
+	@staticmethod
+    def _parse_txt(filepath):
+        """
+        Parses a STEREO SIT file from
+        http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
+        
+        and returns header and astropy.Table object containing data
+    
+        """
+        header = ['DateTime', 'Column 2: number of minutes summed in rate\n', 'Column 3:  0.113 - 0.160 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n',
+            'Column 4:  0.160 - 0.226 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 'Column 5:  0.226 - 0.320 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n',
+            'Column 6:  0.320 - 0.452 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 'Column 7:  0.452 - 0.640 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 
+            'Column 8:  0.640 - 0.905 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 'Column 9:  0.905 - 1.280 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 
+            'Column 10:  1.280 - 1.810 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 'Column 11:  1.810 - 2.560 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n',
+            'Column 16:  2.560 - 3.620 MeV/n 4He intensity (1/(cm^2 s sr MeV/nuc))\n', 'Column 11: 4He total counts for umber of minutes  energy range', 
+            'Column 12: 4He total counts for 0.113 - 0.160 MeV energy range', 'Column 13: 4He total counts for 0.160 - 0.226 MeV energy range', 
+            'Column 14: 4He total counts for .226 - 0.320 MeV/ energy range', 'Column 15: 4He total counts for .320 - 0.452 MeV/ energy range', 
+            'Column 16: 4He total counts for .452 - 0.640 MeV/ energy range', 'Column 17: 4He total counts for .640 - 0.905 MeV/ energy range', 
+            'Column 18: 4He total counts for .905 - 1.280 MeV/ energy range', 'Column 19: 4He total counts for 1.280 - 1.810 MeV energy range', 
+            'Column 20: 4He total counts for 1.810 - 2.560 MeV energy range']
+
+        data = ascii.read(filepath, delimiter = "\s", data_start = 27) 
+    
+        data_modify = []
+        
+        #Storing data columns in recognizable variables
+        year_col = data['col1']
+        day_of_year_col = data['col2']
+        hour_col = data['col3']
+        minutes_col = data['col4']
+        seconds_col = data['col5']
+        
+        #Combining Date, Time columns to make a single datetime.datetime value column 
+        for i in range(len(data)): 
+            date = datetime(year_col[i], 1, 1) + timedelta(int(day_of_year_col[i]) - 1)
+            data_modify.append(datetime(date.year, date.month, date.day, hour_col[i], minutes_col[i], seconds_col[i]))
+    
+        #Adding one DateTime column and removing 5 columns with separated time info
+        data.add_column(Column(data = data_modify, name='col'),1)
+        data.remove_columns(['col{}'.format(i) for i in range(1,6)])
+    
+    
+        #To add the column names in the astropy table object
+        for elem, head_key in enumerate(header):
+            data.rename_column(data.colnames[elem], head_key)        
+    
+        #Converting from astropy.table.Table to pandas.Dataframe
+        # to_pandas() bound method is only available in the latest development build of astropy and 
+        # none of the stable versions include it
+        data = data.to_pandas()
+    
+        return header, data
+    
+    """
+    >>> _parse_txt('SIT_Ahead_10min_4He_2007_01.txt') 
+    #Assuming the file is in same directory
+    
+    """
 
 
 class PLASTICLightCurve(LightCurve):
