@@ -11,7 +11,7 @@ __email__   = "ankitkmr.iitk@gmail.com"
 # Google Summer of Code 2015
 
 
-from datetime import timedelta,datetime
+from datetime import timedelta,datetime,time
 
 from astropy.io import ascii
 from astropy.table import Table, Column
