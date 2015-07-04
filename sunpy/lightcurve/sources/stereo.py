@@ -208,7 +208,7 @@ class SITLightCurve(LightCurve):
 
 	"""
 
-	@staticmethod
+    @staticmethod
     def _parse_txt(filepath):
         """
         Parses a STEREO SIT file from
