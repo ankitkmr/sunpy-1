@@ -123,7 +123,7 @@ class SEPTClient(GenericClient):
 			answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average_Duration', 'Specie', 'Sensor_Pointing']
+		chkattr =  ['Time', 'Instrument', 'stereo_spacecraft', 'duration_of_average', 'specie', 'sensor_pointing']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sept':
@@ -219,7 +219,7 @@ class HETClient(GenericClient):
 			answer as to whether client can service the query
 		    
 		"""
-		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration']
+		chkattr =  ['Time', 'Instrument', 'stereo_spacecraft', 'duration_of_average']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/het':
@@ -323,7 +323,7 @@ class SITClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie' ]
+		chkattr =  ['Time', 'Instrument', 'stereo_spacecraft', 'duration_of_average', 'specie' ]
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sit':
@@ -414,7 +414,7 @@ class PLASTICClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration']
+		chkattr =  ['Time', 'Instrument', 'stereo_spacecraft', 'duration_of_average']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/plastic':
@@ -485,7 +485,7 @@ class MAGClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Spacecraft']
+		chkattr =  ['Time', 'Instrument', 'stereo_spacecraft']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/mag':
@@ -633,7 +633,7 @@ class LETClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Average Duration', 'Datatype', 'Specie', 'Spacecraft']
+		chkattr =  ['Time', 'Instrument', 'duration_of_average', 'type_of_data', 'specie', 'stereo_spacecraft']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/let':

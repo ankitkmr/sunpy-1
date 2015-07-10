@@ -128,7 +128,7 @@ class ERNEClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Specie']
+		chkattr =  ['Time', 'Instrument', 'specie']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		instrument_check, specie_check = False, False
 		for x in query:
