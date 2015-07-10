@@ -15,11 +15,12 @@ from sunpy.util.scraper import Scraper
 from sunpy.time import TimeRange
 
 
+
 __all__ = ['SEPTClient', 'HETClient', 'SITClient', 'PLASTICClient', 'MAGClient', 'LETClient']
 
 
 class SEPTClient(GenericClient):
-	def _get_url_for_timerange(timerange, stereo_spacecraft = 'ahead', duration_of_average = 10*u.min,
+	def _get_url_for_timerange(cls,timerange, stereo_spacecraft = 'ahead', duration_of_average = 10*u.min,
 							   specie = 'element', sensor_pointing = 'asun'):
 		"""
 		Returns list of URLS to STEREO SEPT data files corresponding to value of input timerange.
@@ -122,7 +123,7 @@ class SEPTClient(GenericClient):
 			answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie', 'Sensor Pointing']
+		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average_Duration', 'Specie', 'Sensor_Pointing']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sept':
@@ -134,7 +135,7 @@ class SEPTClient(GenericClient):
 class HETClient(GenericClient):
 
 
-	def _get_url_for_timerange(timerange, stereo_spacecraft = 'ahead', duration_of_average = 15*u.min):
+	def _get_url_for_timerange(cls,timerange, stereo_spacecraft = 'ahead', duration_of_average = 15*u.min):
 		"""
 		Returns list of URLS to STEREO HET data files corresponding to value of input timerange.
 		URL Source : http://www.srl.caltech.edu/STEREO/DATA/HET/
@@ -228,7 +229,7 @@ class HETClient(GenericClient):
 
 class SITClient(GenericClient):
 
-	def _get_url_for_timerange(timerange, stereo_spacecraft = 'ahead', 
+	def _get_url_for_timerange(cls,timerange, stereo_spacecraft = 'ahead', 
 							   atomic_specie       = '4He', 
 							   duration_of_average = 10*u.min):
 		"""
@@ -333,7 +334,7 @@ class SITClient(GenericClient):
 
 class PLASTICClient(GenericClient):
 
-	def _get_url_for_timerange(timerange, stereo_spacecraft = 'ahead', 
+	def _get_url_for_timerange(cls,timerange, stereo_spacecraft = 'ahead', 
 							   			duration_of_average = 10*u.min):
 		"""
 		Returns list of URLS to STEREO PLASTIC data files corresponding to value of input timerange.
@@ -423,7 +424,7 @@ class PLASTICClient(GenericClient):
 
 class MAGClient(GenericClient):
 
-	def _get_url_for_timerange(timerange, stereo_spacecraft = 'ahead'):
+	def _get_url_for_timerange(cls,timerange, stereo_spacecraft = 'ahead'):
 		"""
 		Returns list of URLS to STEREO MagPlasma data files corresponding to value of input timerange.
 		URL Source : http://stereo.ssl.berkeley.edu/L2_data.php
@@ -494,7 +495,7 @@ class MAGClient(GenericClient):
 	
 class LETClient(GenericClient):
 
-	def _get_url_for_timerange(timerange, duration_of_average, type_of_data , specie, stereo_spacecraft = 'ahead'):
+	def _get_url_for_timerange(cls,timerange, duration_of_average, type_of_data , specie, stereo_spacecraft = 'ahead'):
 		"""
 		Returns list of URLS to STEREO LET data files corresponding to value of input timerange.
 		URL Source : http://www.srl.caltech.edu/STEREO/Public/LET_public.html
