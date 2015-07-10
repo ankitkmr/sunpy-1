@@ -254,6 +254,30 @@ class Specie(_VSOSimpleAttr):
     """
     pass
 
+class Spacecraft(_VSOSimpleAttr):
+    """
+    Specifies the Spacecraft to search for data for.
+    """
+    pass
+
+class Average_Duration(_VSOSimpleAttr):
+    """
+    Specifies the Average Duration to search for data for.
+    """
+    pass
+
+class Sensor_Pointing(_VSOSimpleAttr):
+    """
+    Specifies the Sensor Pointing to search for data for.
+    """
+    pass
+
+class Datatype(_VSOSimpleAttr):
+    """
+    Specifies the Datatype to search for data for.
+    """
+    pass
+
 
 # The walker specifies how the Attr-tree is converted to a query the
 # server can handle.

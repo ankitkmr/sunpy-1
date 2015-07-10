@@ -122,7 +122,7 @@ class SEPTClient(GenericClient):
 			answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie', 'Sensor Pointing']
+		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie', 'Sensor Pointing']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sept':
@@ -218,7 +218,7 @@ class HETClient(GenericClient):
 			answer as to whether client can service the query
 		    
 		"""
-		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration']
+		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/het':
@@ -322,7 +322,7 @@ class SITClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie' ]
+		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration', 'Specie' ]
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/sit':
@@ -413,7 +413,7 @@ class PLASTICClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Timerange', 'Instrument', 'Spacecraft', 'Average Duration']
+		chkattr =  ['Time', 'Instrument', 'Spacecraft', 'Average Duration']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/plastic':
@@ -632,7 +632,7 @@ class LETClient(GenericClient):
 		answer as to whether client can service the query
 		
 		"""
-		chkattr =  ['Timerange', 'Instrument', 'Average Duration', 'Datatype', 'Specie', 'Spacecraft']
+		chkattr =  ['Time', 'Instrument', 'Average Duration', 'Datatype', 'Specie', 'Spacecraft']
 		chklist =  [x.__class__.__name__ in chkattr for x in query]
 		for x in query:
 			if x.__class__.__name__ == 'Instrument' and x.value == 'stereo/let':
