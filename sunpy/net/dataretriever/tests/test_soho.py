@@ -1,7 +1,7 @@
 import pytest
 
 from sunpy.time.timerange import TimeRange
-from sunpy.net.vso.attrs import Time, Instrument
+from sunpy.net.vso.attrs import Time, Instrument,Specie
 from sunpy.net.dataretriever.client import QueryResponse
 import sunpy.net.dataretriever.sources.soho as soho
 
