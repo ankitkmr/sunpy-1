@@ -31,12 +31,12 @@ def test_get_url_for_time_range(timerange, stereo_spacecraft, duration_of_averag
     assert urls[-1] == url_end
 
 def test_can_handle_query():
-    ans1 = soho.HETClient._can_handle_query(Time(TimeRange('2007-03-01','2010-07-02')), Instrument('stereo/het'),
+    ans1 = stereo.HETClient._can_handle_query(Time(TimeRange('2007-03-01','2010-07-02')), Instrument('stereo/het'),
                                              stereo_spacecraft = 'ahead', duration_of_average = 12*u.h)
     assert ans1 == True
-    ans2 = soho.HETClient._can_handle_query(Time(TimeRange('1988/7/7', '2008/7/7')))
+    ans2 = stereo.HETClient._can_handle_query(Time(TimeRange('1988/7/7', '2008/7/7')))
     assert ans2 == False
-    ans3 = soho.HETClient._can_handle_query(Time('2012/8/9', '2012/8/10'), Instrument('eve'))
+    ans3 = stereo.HETClient._can_handle_query(Time('2012/8/9', '2012/8/10'), Instrument('eve'))
     assert ans3 == False
 
 def test_query():
