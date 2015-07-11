@@ -31,19 +31,19 @@ def test_get_url_for_time_range(timerange, specie, duration_of_average, stereo_s
     assert urls[-1] == url_end
 
 def test_can_handle_query():
-    ans1 = stereo.LETClient._can_handle_query(TimeRange('2008-03-01','2010-07-02'), Instrument('stereo/let'), specie = 'Al', 
+    ans1 = stereo.LETClient._can_handle_query(Time(TimeRange('2008-03-01','2010-07-02')), Instrument('stereo/let'), specie = 'Al', 
                                                     duration_of_average = 10*u.min, stereo_spacecraft ='ahead', type_of_data ='summed')
     assert ans1 == True
-    ans1 = stereo.LETClient._can_handle_query(TimeRange('1998-03-01','2003-07-02'), Instrument('stereo/let'), specie = 'CNO_hi', 
+    ans1 = stereo.LETClient._can_handle_query(Time(TimeRange('1998-03-01','2003-07-02')), Instrument('stereo/let'), specie = 'CNO_hi', 
                                                     duration_of_average = 10*u.min, stereo_spacecraft ='behind', type_of_data ='sectored')
     assert ans1 == True
-    ans2 = stereo.LETClient._can_handle_query(Time('2012/7/7', '2012/7/7'))
+    ans2 = stereo.LETClient._can_handle_query(Time(TimeRange('2012/7/7', '2012/7/7')))
     assert ans2 == False
-    ans3 = stereo.LETClient._can_handle_query(Time('2012/8/9', '2012/8/10'), Instrument('eve'))
+    ans3 = stereo.LETClient._can_handle_query(Time(TimeRange('2012/8/9', '2012/8/10')), Instrument('eve'))
     assert ans3 == False
 
 def test_query():
-    qr1 = LCClient.query(Time('2012/8/9', '2012/8/10'), Instrument('stereo/let'))
+    qr1 = LCClient.query(Time(TimeRange('2012/8/9', '2012/8/10')), Instrument('stereo/let'))
     assert isinstance(qr1,QueryResponse)
     assert len(qr1) == 1
     assert qr1.time_range()[0] == '2012/08/09'
@@ -52,9 +52,9 @@ def test_query():
 
 @pytest.mark.online
 @pytest.mark.parametrize("time, instrument",
-[(Time('2012/11/27', '2012/11/27'), Instrument('stereo/let'), specie = 'Al', 
+[(Time(TimeRange('2012/11/27', '2012/11/27')), Instrument('stereo/let'), specie = 'Al', 
                             duration_of_average = 10*u.min, stereo_spacecraft ='ahead', type_of_data ='summed'),
- (Time('2012/10/4', '2012/10/6'), Instrument('stereo/let'),specie = 'CNO_hi', 
+ (Time(TimeRange('2012/10/4', '2012/10/6')), Instrument('stereo/let'),specie = 'CNO_hi', 
                             duration_of_average = 10*u.min, stereo_spacecraft ='behind', type_of_data ='sectored'),
 ])
 def test_get(time,instrument,specie,duration_of_average,stereo_spacecraft,type_of_data):
