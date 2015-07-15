@@ -199,7 +199,7 @@ class SITLightCurve(LightCurve):
 
     def peek(self, title="SIT elemental Flux"):
         """Plots SIT light curve in the usual manner"""
-        
+
         figure = plt.figure()
         axes = plt.gca()
 
@@ -641,5 +641,5 @@ class HETLightCurve(LightCurve):
         # to_pandas() bound method is only available in the latest development build and none of the stable
         data = data.to_pandas()
         
-        return data
+        return header, data
 
