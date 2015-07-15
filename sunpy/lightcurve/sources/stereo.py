@@ -559,7 +559,7 @@ class HETLightCurve(LightCurve):
 
     def peek(self, title="HET electron/proton Flux"):
         """Plots HET light curve in the usual manner"""
-        
+
         figure = plt.figure()
         ax = plt.gca()
 
