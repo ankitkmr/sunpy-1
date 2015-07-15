@@ -568,34 +568,34 @@ class HETLightCurve(LightCurve):
             type_of_data = 'other'
      
         #Header
-        header = [  'Column 2: Electron flux, 0.7-1.4 MeV, particles/(cm2-sr-sec-MeV)', 
-                    'Column 3: Uncertainty (sigma) for 0.7-1.4 MeV electron flux',
-                    'Column 4: Electron flux, 1.4-2.8 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 5: Uncertainty (sigma) for 1.4-2.8 MeV electron flux',
-                    'Column 6: Electron flux, 2.8-4.0 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 7: Uncertainty (sigma) for 2.8-4.0 MeV electron flux',
-                    'Column 8: Proton flux, 13.6-15.1 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 9: Uncertainty (sigma) for 13.6-15.1 MeV proton flux',
-                    'Column 10: Proton flux, 14.9-17.1 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 11: Uncertainty (sigma) for 14.9-17.1 MeV proton flux',
-                    'Column 12: Proton flux, 17.0-19.3 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 13: Uncertainty (sigma) for 17.0-19.3 MeV proton flux',
-                    'Column 14: Proton flux, 20.8-23.8 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 15: Uncertainty (sigma) for 20.8-23.8 MeV proton flux',
-                    'Column 16: Proton flux, 23.8-26.4 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 17: Uncertainty (sigma) for 23.8-26.4 MeV proton flux',
-                    'Column 18: Proton flux, 26.3-29.7 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 19: Uncertainty (sigma) for 26.3-29.7 MeV proton flux',
-                    'Column 20: Proton flux, 29.5-33.4 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 21: Uncertainty (sigma) for 29.5-33.4 MeV proton flux' ,
-                    'Column 22: Proton flux, 33.4-35.8 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 23: Uncertainty (sigma) for 33.4-35.8 MeV proton flux' ,
-                    'Column 24: Proton flux, 35.5-40.5 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 25: Uncertainty (sigma) for 35.5-40.5 MeV proton flux' ,
-                    'Column 26: Proton flux, 40.0-60.0 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 27: Uncertainty (sigma) for 40.0-60.0 MeV proton flux' ,
-                    'Column 28: Proton flux, 60.0-100.0 MeV, particles/(cm2-sr-sec-MeV)',
-                    'Column 29: Uncertainty (sigma) for 60.0-100.0 MeV proton flux' ]
+        header = [  'Electron flux, 0.7-1.4 MeV, particles/(cm2-sr-sec-MeV)', 
+                    'Uncertainty (sigma) for 0.7-1.4 MeV electron flux',
+                    'Electron flux, 1.4-2.8 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 1.4-2.8 MeV electron flux',
+                    'Electron flux, 2.8-4.0 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 2.8-4.0 MeV electron flux',
+                    'Proton flux, 13.6-15.1 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 13.6-15.1 MeV proton flux',
+                    'Proton flux, 14.9-17.1 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 14.9-17.1 MeV proton flux',
+                    'Proton flux, 17.0-19.3 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 17.0-19.3 MeV proton flux',
+                    'Proton flux, 20.8-23.8 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 20.8-23.8 MeV proton flux',
+                    'Proton flux, 23.8-26.4 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 23.8-26.4 MeV proton flux',
+                    'Proton flux, 26.3-29.7 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 26.3-29.7 MeV proton flux',
+                    'Proton flux, 29.5-33.4 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 29.5-33.4 MeV proton flux' ,
+                    'Proton flux, 33.4-35.8 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 33.4-35.8 MeV proton flux' ,
+                    'Proton flux, 35.5-40.5 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 35.5-40.5 MeV proton flux' ,
+                    'Proton flux, 40.0-60.0 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 40.0-60.0 MeV proton flux' ,
+                    'Proton flux, 60.0-100.0 MeV, particles/(cm2-sr-sec-MeV)',
+                    'Uncertainty (sigma) for 60.0-100.0 MeV proton flux' ]
        
 
         data_modify = []
@@ -608,7 +608,7 @@ class HETLightCurve(LightCurve):
 
         #Adding Time Column based on type of data
         if type_of_data == '1min':
-            header = ['Verse Number', 'Column 1 : DateTime'] + header 
+            header = ['Verse Number', 'DateTime'] + header 
 
             for i in range(len(data)): 
                 date = datetime.strptime(str(start_year_col[i])+ '-' +start_month_col[i]+ '-' +"%02d"%start_date_col[i] + '/' + ("%04d"%start_time_col[i])[:2] + ':' + ("%04d"%start_time_col[i])[2:], '%Y-%b-%d/%H:%M' )
@@ -616,7 +616,7 @@ class HETLightCurve(LightCurve):
 
             data.remove_columns(['col{}'.format(i) for i in range(2,6)])
         else:
-            header = ['Verse Number','Column 1 : TimeRange'] + header
+            header = ['Verse Number','TimeRange'] + header
             
             #Storing data columns in recognizable variables
             end_year_col    = data['col6']
