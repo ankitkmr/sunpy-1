@@ -197,7 +197,7 @@ class SITLightCurve(LightCurve):
 
     """
 
-    def peek(self, title="SIT elemental Flux"):
+    def peek(self, title="SIT elemental Intensities"):
         """Plots SIT light curve in the usual manner"""
 
         figure = plt.figure()
