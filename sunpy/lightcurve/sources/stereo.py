@@ -450,6 +450,40 @@ class SEPTLightCurve(LightCurve):
 
     """
 
+    def peek(self, title="SEPT Electron Intensities"):
+        """Plots SEPT light curve in the usual manner"""
+        figure = plt.figure()
+        ax = plt.gca()
+
+        data = self.data.replace([-9.9999E+03,float(0)],float('nan'))
+        dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
+        
+        colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange',
+                            'Purple','Magenta','MediumVioletRed', 'Teal','Navy','Indigo']
+
+        figure.delaxes(ax)
+        axes = figure.add_axes([0.1, 0.15, 0.55, 0.8])
+
+        for i,line in enumerate(self.header):
+            if i >= 1 and i <= 15:
+                axes.plot_date(dates, data[line].ffill(), '-',
+                     label= line[line.index('(')+1:line.index('V')+1] , color=colors[i/2-2], lw=0.5)
+        
+        axes.set_yscale("log")
+        axes.set_title(title)
+        axes.set_ylabel('1/(cm^2 s sr MeV)')
+        axes.set_xlabel('UTC TimeZone')
+
+        axes.yaxis.grid(True, 'major')
+        axes.xaxis.grid(False, 'major')
+
+        axes.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+        figure.autofmt_xdate()
+        plt.show()
+
+        return figure
+
     @staticmethod
     def _parse_txt(filepath):
         """
@@ -461,38 +495,38 @@ class SEPTLightCurve(LightCurve):
         data = ascii.read(filepath, delimiter = "\s") 
 
         #Header
-        header = [  'Column 1 : DateTime (datetime.datetime)',
-                    'Column 2 : Bin 02 (  45.0-  55.0 keV) electron intensity (float)',
-                    'Column 3 : Bin 03 (  55.0-  65.0 keV) electron intensity (float)',
-                    'Column 4 : Bin 04 (  65.0-  75.0 keV) electron intensity (float)',
-                    'Column 5: Bin 05 (  75.0-  85.0 keV) electron intensity (float)',
-                    'Column 6: Bin 06 (  85.0- 105.0 keV) electron intensity (float)',
-                    'Column 7: Bin 07 ( 105.0- 125.0 keV) electron intensity (float)',
-                    'Column 8: Bin 08 ( 125.0- 145.0 keV) electron intensity (float)',
-                    'Column 9: Bin 09 ( 145.0- 165.0 keV) electron intensity (float)',
-                    'Column 10: Bin 10 ( 165.0- 195.0 keV) electron intensity (float)',
-                    'Column 11: Bin 11 ( 195.0- 225.0 keV) electron intensity (float)',
-                    'Column 12: Bin 12 ( 225.0- 255.0 keV) electron intensity (float)',
-                    'Column 13: Bin 13 ( 255.0- 295.0 keV) electron intensity (float)',
-                    'Column 14: Bin 14 ( 295.0- 335.0 keV) electron intensity (float)',
-                    'Column 15: Bin 15 ( 335.0- 375.0 keV) electron intensity (float)',
-                    'Column 16: Bin 16 ( 375.0- 425.0 keV) electron intensity (float)',
-                    'Column 17: Bin 02 Uncertainty (float)',
-                    'Column 18: Bin 03 Uncertainty (float)',
-                    'Column 19: Bin 04 Uncertainty (float)',
-                    'Column 20: Bin 05 Uncertainty (float)',
-                    'Column 21: Bin 06 Uncertainty (float)',
-                    'Column 22: Bin 07 Uncertainty (float)',
-                    'Column 23: Bin 08 Uncertainty (float)',
-                    'Column 24: Bin 09 Uncertainty (float)',
-                    'Column 25: Bin 10 Uncertainty (float)',
-                    'Column 26: Bin 11 Uncertainty (float)',
-                    'Column 27: Bin 12 Uncertainty (float)',
-                    'Column 28: Bin 13 Uncertainty (float)',
-                    'Column 29: Bin 14 Uncertainty (float)',
-                    'Column 30: Bin 15 Uncertainty (float)',
-                    'Column 31: Bin 16 Uncertainty (float)',
-                    'Column 32: Accumulation time in seconds (float)'  ]
+        header = [ 'DateTime',
+                    'Bin 02 (45.0 - 55.0 keV) electron intensity',
+                    'Bin 03 (55.0 - 65.0 keV) electron intensity',
+                    'Bin 04 (65.0 - 75.0 keV) electron intensity',
+                    'Bin 05 (75.0 - 85.0 keV) electron intensity',
+                    'Bin 06 (85.0 - 105.0 keV) electron intensity',
+                    'Bin 07 (105.0 - 125.0 keV) electron intensity',
+                    'Bin 08 (125.0 - 145.0 keV) electron intensity',
+                    'Bin 09 (145.0 - 165.0 keV) electron intensity',
+                    'Bin 10 (165.0 - 195.0 keV) electron intensity',
+                    'Bin 11 (195.0 - 225.0 keV) electron intensity',
+                    'Bin 12 (225.0 - 255.0 keV) electron intensity',
+                    'Bin 13 (255.0 - 295.0 keV) electron intensity',
+                    'Bin 14 (295.0 - 335.0 keV) electron intensity',
+                    'Bin 15 (335.0 - 375.0 keV) electron intensity',
+                    'Bin 16 (375.0 - 425.0 keV) electron intensity',
+                    'Bin 02 Uncertainty',
+                    'Bin 03 Uncertainty',
+                    'Bin 04 Uncertainty',
+                    'Bin 05 Uncertainty',
+                    'Bin 06 Uncertainty',
+                    'Bin 07 Uncertainty',
+                    'Bin 08 Uncertainty',
+                    'Bin 09 Uncertainty',
+                    'Bin 10 Uncertainty',
+                    'Bin 11 Uncertainty',
+                    'Bin 12 Uncertainty',
+                    'Bin 13 Uncertainty',
+                    'Bin 14 Uncertainty',
+                    'Bin 15 Uncertainty',
+                    'Bin 16 Uncertainty',
+                    'Accumulation time in seconds'   ]
        
 
         data_modify = []
