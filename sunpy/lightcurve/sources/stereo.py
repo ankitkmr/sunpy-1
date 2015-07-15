@@ -197,13 +197,44 @@ class SITLightCurve(LightCurve):
 
     """
 
+    def peek(self, title="SIT elemental Flux"):
+        """Plots SIT light curve in the usual manner"""
+        
+        figure = plt.figure()
+        axes = plt.gca()
+
+        data = self.data.replace(float(0),float('nan'))
+        dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
+
+        num_energy_bins = (len(self.header)-2)/2
+        colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange','Purple','Magenta','MediumVioletRed']
+
+        for i,line in enumerate(self.header):
+            if i >= 2 and i <= num_energy_bins + 1:
+                axes.plot_date(dates, data[line].ffill(), '-',
+                     label=line[1:20], color=colors[i-2], lw=0.5)
+        
+        axes.set_yscale("log")
+        axes.set_ylim(1e-3, 1e+3)
+        axes.set_title(title + ' : ' + self.header[-1][:self.header[-1].index(' ')])
+        axes.set_ylabel('1/(cm^2 s sr MeV/nuc)')
+
+        axes.yaxis.grid(True, 'major')
+        axes.xaxis.grid(False, 'major')
+        axes.legend()
+
+        figure.autofmt_xdate()
+        plt.show()
+
+        return figure
+
     @staticmethod
     def _parse_txt(filepath):
         """
         Parses a STEREO SIT file from
         http://www.srl.caltech.edu/STEREO/Public/SIT_public.html
         
-        and returns header and astropy.Table object containing data
+        and returns header and Pandas.Dataframe containing data
     
         """
         header = []
@@ -211,8 +242,9 @@ class SITLightCurve(LightCurve):
         data_all = open(filepath)
         for i, line in enumerate(data_all):
             if i > 13 :
-                 header = header + [line]
+                 header.append(line)
             if line == 'BEGIN DATA\n':
+                data_start = i+1
                 break
         data_all.close()
 
@@ -229,7 +261,7 @@ class SITLightCurve(LightCurve):
         for i in range(len(header)-2):
             header = header + [specie + ' total counts for '+ (header[i+2])[1:20] +' energy range']
 
-        data = ascii.read(filepath, delimiter = "\s", data_start = 27) 
+        data = ascii.read(filepath, delimiter = "\s", data_start = data_start) 
     
         data_modify = []
         
