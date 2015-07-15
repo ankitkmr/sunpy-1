@@ -10,6 +10,8 @@ __email__ = "ankitkmr.iitk@gmail.com"
 
 
 from datetime import timedelta,datetime
+import matplotlib.dates
+from matplotlib import pyplot as plt
 
 from astropy.io import ascii
 from astropy.table import Table, Column
@@ -209,6 +211,9 @@ class SITLightCurve(LightCurve):
         num_energy_bins = (len(self.header)-2)/2
         colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange','Purple','Magenta','MediumVioletRed']
 
+        figure.delaxes(ax)
+        axes = figure.add_axes([0.1, 0.15, 0.55, 0.8])
+        
         for i,line in enumerate(self.header):
             if i >= 2 and i <= num_energy_bins + 1:
                 axes.plot_date(dates, data[line].ffill(), '-',
@@ -218,10 +223,12 @@ class SITLightCurve(LightCurve):
         axes.set_ylim(1e-3, 1e+3)
         axes.set_title(title + ' : ' + self.header[-1][:self.header[-1].index(' ')])
         axes.set_ylabel('1/(cm^2 s sr MeV/nuc)')
+        axes.set_xlabel('UTC TimeZone')
+
 
         axes.yaxis.grid(True, 'major')
         axes.xaxis.grid(False, 'major')
-        axes.legend()
+        axes.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
         figure.autofmt_xdate()
         plt.show()
