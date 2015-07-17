@@ -205,7 +205,6 @@ class SITLightCurve(LightCurve):
         figure = plt.figure()
         axes = plt.gca()
 
-        data = self.data.replace(float(0),float('nan'))
         dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
 
         num_energy_bins = (len(self.header)-2)/2
@@ -219,7 +218,7 @@ class SITLightCurve(LightCurve):
                 axes.plot_date(dates, data[line].ffill(), '-',
                      label=line[1:20], color=colors[i-2], lw=0.5)
         
-        axes.set_yscale("log")
+        axes.set_yscale("log",nonposy='mask')
         axes.set_ylim(1e-3, 1e+3)
         axes.set_title(title + ' : ' + self.header[-1][:self.header[-1].index(' ')])
         axes.set_ylabel('1/(cm^2 s sr MeV/nuc)')
@@ -455,7 +454,6 @@ class SEPTLightCurve(LightCurve):
         figure = plt.figure()
         ax = plt.gca()
 
-        data = self.data.replace([-9.9999E+03,float(0)],float('nan'))
         dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
         
         colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange',
@@ -469,7 +467,7 @@ class SEPTLightCurve(LightCurve):
                 axes.plot_date(dates, data[line].ffill(), '-',
                      label= line[line.index('(')+1:line.index('V')+1] , color=colors[i/2-2], lw=0.5)
         
-        axes.set_yscale("log")
+        axes.set_yscale("log",nonposy='mask')
         axes.set_title(title)
         axes.set_ylabel('1/(cm^2 s sr MeV)')
         axes.set_xlabel('UTC TimeZone')
@@ -597,8 +595,6 @@ class HETLightCurve(LightCurve):
         figure = plt.figure()
         ax = plt.gca()
 
-        data = self.data.replace(float(0),float('nan'))
-
         if self.header[1] == 'DateTime':
             dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
         else:
@@ -616,7 +612,7 @@ class HETLightCurve(LightCurve):
                 axes.plot_date(dates, data[line].ffill(), '-',
                      label= line[:line.index('n')+2] + line[line.index(',')+2:line.index('V')+1], color=colors[i/2-2], lw=0.5)
         
-        axes.set_yscale("log")
+        axes.set_yscale("log",nonposy='mask')
         axes.set_title(title)
         axes.set_ylabel('particles/(cm2-sr-sec-MeV)')
         axes.set_xlabel('UTC TimeZone')

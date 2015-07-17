@@ -61,8 +61,6 @@ class ERNELightCurve(LightCurve):
         figure = plt.figure()
         ax = plt.gca()
 
-        data = self.data.replace(float(-1),float('nan'))
-
         timerange_start = data['TimeRange'].apply(lambda col: col.start)
         dates = matplotlib.dates.date2num(timerange_start.astype(datetime))
 
@@ -76,7 +74,7 @@ class ERNELightCurve(LightCurve):
                 axes.plot_date(dates, data[line].ffill(), '-',
                      label=line[line.index('l')+2:], color=colors[i], lw=1)
         
-        axes.set_yscale("log")
+        axes.set_yscale("log",nonposy='mask')
         axes.set_title(title)
         axes.set_ylabel('1/(cm^2*sr*s*MeV) [per nucleon in case of protons]')
         axes.set_xlabel('UTC TimeZone')
