@@ -205,7 +205,7 @@ class SITLightCurve(LightCurve):
         figure = plt.figure()
         axes = plt.gca()
 
-        dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
+        dates = matplotlib.dates.date2num(self.data['DateTime'].astype(datetime))
 
         num_energy_bins = (len(self.header)-2)/2
         colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange','Purple','Magenta','MediumVioletRed']
@@ -215,7 +215,7 @@ class SITLightCurve(LightCurve):
 
         for i,line in enumerate(self.header):
             if i >= 2 and i <= num_energy_bins + 1:
-                axes.plot_date(dates, data[line].ffill(), '-',
+                axes.plot_date(dates, self.data[line].ffill(), '-',
                      label=line[1:20], color=colors[i-2], lw=0.5)
         
         axes.set_yscale("log",nonposy='mask')
@@ -454,6 +454,7 @@ class SEPTLightCurve(LightCurve):
         figure = plt.figure()
         ax = plt.gca()
 
+        data = self.data.replace(-9.9999E+03,float('nan'))
         dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
         
         colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange',
@@ -596,9 +597,9 @@ class HETLightCurve(LightCurve):
         ax = plt.gca()
 
         if self.header[1] == 'DateTime':
-            dates = matplotlib.dates.date2num(data['DateTime'].astype(datetime))
+            dates = matplotlib.dates.date2num(self.data['DateTime'].astype(datetime))
         else:
-            timerange_start = data['TimeRange'].apply(lambda col: col.start)
+            timerange_start = self.data['TimeRange'].apply(lambda col: col.start)
             dates = matplotlib.dates.date2num(timerange_start.astype(datetime))
 
         colors = ['Green','Red','Chocolate', 'Blue','SeaGreen','Tomato','SlateBlue','Orange',
@@ -609,7 +610,7 @@ class HETLightCurve(LightCurve):
 
         for i,line in enumerate(self.header):
             if i >= 2 and i%2 == 0:
-                axes.plot_date(dates, data[line].ffill(), '-',
+                axes.plot_date(dates, self.data[line].ffill(), '-',
                      label= line[:line.index('n')+2] + line[line.index(',')+2:line.index('V')+1], color=colors[i/2-2], lw=0.5)
         
         axes.set_yscale("log",nonposy='mask')
