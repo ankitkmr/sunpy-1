@@ -100,7 +100,7 @@ class LETLightCurve(LightCurve):
                     continue
                 elif line[:7] == 'Columns':
                     data_start = i + 4
-                    data_points = int(line[20])
+                    data_points = int(line[20:line.index('f')-1])
                 
                     for k in range(data_points):
                         header = header + ['Uncertainty for ' + header[k]]
