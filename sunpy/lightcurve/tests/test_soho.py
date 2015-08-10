@@ -20,7 +20,7 @@ filepath = sunpy.data.test.rootdir
 class TestERNELightCurve(object):
 
     #Test header parsing from file
-    @pytest.mark.parametrize("data_file",[('cr1907a.txt'),('cr1907p.txt')])
+    @pytest.mark.parametrize("data_file",[('erne/cr1907a.txt'),('erne/cr1907p.txt')])
     @pytest.mark.online
     def test_header(self, data_file):
         lc = sunpy.lightcurve.ERNELightCurve
@@ -33,7 +33,7 @@ class TestERNELightCurve(object):
 
 
     #Test for non empty data parsing from file
-    @pytest.mark.parametrize("data_file",[('cr1907a.txt'),('cr1907p.txt')])
+    @pytest.mark.parametrize("data_file",[('erne/cr1907a.txt'),('erne/cr1907p.txt')])
     @pytest.mark.online
     def test_data(self, data_file):
         lc = sunpy.lightcurve.ERNELightCurve
@@ -41,7 +41,7 @@ class TestERNELightCurve(object):
 
 
     #Test parsed header and data columns list for equal lengths
-    @pytest.mark.parametrize("data_file",[('cr1907a.txt'),('cr1907p.txt')])
+    @pytest.mark.parametrize("data_file",[('erne/cr1907a.txt'),('erne/cr1907p.txt')])
     @pytest.mark.online
     def test_header(self, data_file):
         lc = sunpy.lightcurve.ERNELightCurve._parse_txt(os.path.join(filepath , data_file))
