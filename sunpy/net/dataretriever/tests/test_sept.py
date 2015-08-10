@@ -53,12 +53,12 @@ def test_query():
 
 @pytest.mark.online
 @pytest.mark.parametrize("time, instrument, specie, duration_of_average, stereo_spacecraft, sensor_pointing",
-[(Time(TimeRange('2008/03/01', '2008/03/01')), Instrument('stereo/sept'), 'element', 10*u.min, 'ahead', 'asun'),
- (Time(TimeRange('2009/03/01', '2009/03/05')), Instrument('stereo/sept'), 'element', 1*u.d, 'behind', 'asun'),
+[(Time(TimeRange('2008/03/01', '2008/03/05')), Instrument('stereo/sept'), 'element', 10*u.min, 'ahead', 'asun'),
+ (Time(TimeRange('2009/07/01', '2009/07/05')), Instrument('stereo/sept'), 'element', 1*u.d, 'behind', 'asun'),
 ])
 def test_get(time,instrument, specie, duration_of_average, stereo_spacecraft, sensor_pointing):
     qr1 = LCClient.query(time,instrument,specie = specie, duration_of_average = duration_of_average, 
                                     stereo_spacecraft = stereo_spacecraft, sensor_pointing = sensor_pointing)
     res = LCClient.get(qr1)
     download_list = res.wait()
-    assert len(download_list) == len(qr1)
+    assert len(download_list) == len(qr1)/2
