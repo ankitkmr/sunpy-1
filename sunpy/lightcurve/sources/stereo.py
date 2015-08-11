@@ -71,36 +71,37 @@ def _to_pandas(self):
 
 class LETLightCurve(LightCurve):
     """
+
     STEREO LET LightCurve. Provides data from as back as 2006.
 
     Parameters
-		----------
-		timerange: sunpy.time.TimeRange
-		    time range for which data is to be downloaded.
-		    Default value -  TimeRange('2007-01-01','2008-06-01')	
+	----------
+	timerange: sunpy.time.TimeRange
+	    time range for which data is to be downloaded.
+	    Default value -  TimeRange('2007-01-01','2008-06-01')	
 
-		duration_of_average: string
-			Default value - 10*u.min
-			Possible values - 1*u.min, 10*u.min, 1*u.h, 1*u.d, 27*u.d	
-			#corresponding to duration over which data is averaged
+	duration_of_average: string
+		Default value - 10*u.min
+		Possible values - 1*u.min, 10*u.min, 1*u.h, 1*u.d, 27*u.d	
+		#corresponding to duration over which data is averaged
 
-		type_of_data:  string
-			Possible values - depends on other parameters
-			if duration_of_average = 27*u.d:
-				#Possible Values: summed, narrow
-			else:
-				#Possible values: sectored, standard, summed
+	type_of_data:  string
+		Possible values - depends on other parameters
+		if duration_of_average = 27*u.d:
+			#Possible Values: summed, narrow
+		else:
+			#Possible values: sectored, standard, summed
 
-		specie:  string
-			Possible values - depends on other parameters
-			if type_of_data = 'Sectored' and duration_of_average in [ 1*u.min, 10*u.min, 1*u.h, 1*u.d]:
-				#Possible values: CNO_hi,CNO_lo, Fe_hi, Fe_lo, H_lo, He3_lo, He4_hi, He4_lo, He_lo, NeMgSi_hi, NeMgSi_lo
-			else:
-				#Possible values: Al, Ar, C, Ca, Fe, H, He, He3, He4, Mg, N, Na, Ne, Ni, O, S, Si
+	specie:  string
+		Possible values - depends on other parameters
+		if type_of_data = 'Sectored' and duration_of_average in [ 1*u.min, 10*u.min, 1*u.h, 1*u.d]:
+			#Possible values: CNO_hi,CNO_lo, Fe_hi, Fe_lo, H_lo, He3_lo, He4_hi, He4_lo, He_lo, NeMgSi_hi, NeMgSi_lo
+		else:
+			#Possible values: Al, Ar, C, Ca, Fe, H, He, He3, He4, Mg, N, Na, Ne, Ni, O, S, Si
 
-		stereo_spacecraft: string	
-			Default value - ahead
-			Possible values - ahead, behind    # corresponding to spacecraft location
+	stereo_spacecraft: string	
+		Default value - ahead
+		Possible values - ahead, behind    # corresponding to spacecraft location
 
     Examples
     --------
@@ -279,21 +280,21 @@ class SITLightCurve(LightCurve):
 
     Parameters
     ----------
-        timerange: sunpy.time.TimeRange
-            time range for which data is to be downloaded.
-            Example value -  TimeRange('2007-01-01','2015-03-01')   
+    timerange: sunpy.time.TimeRange
+        time range for which data is to be downloaded.
+        Example value -  TimeRange('2007-01-01','2015-03-01')   
 
-        stereo_spacecraft: string   
-            Default value - ahead
-            Possible values - ahead, behind    # corresponding to spacecraft location
+    stereo_spacecraft: string   
+        Default value - ahead
+        Possible values - ahead, behind    # corresponding to spacecraft location
 
-        specie:  string
-            Default value - 4He
-            Possible values - 4He, Fe, H, O
+    specie:  string
+        Default value - 4He
+        Possible values - 4He, Fe, H, O
 
-        duration_of_average: string
-        Default value - 15min
-            Possible values - 1min, 10min, 1hr, 1day        #corresponding to duration over which data is averaged
+    duration_of_average: string
+    Default value - 15min
+        Possible values - 1min, 10min, 1hr, 1day        #corresponding to duration over which data is averaged
 
 
     Examples
@@ -416,20 +417,19 @@ class PLASTICLightCurve(LightCurve):
     STEREO PLASTIC LightCurve. 
 
     Parameters
-        ----------
-        timerange: sunpy.time.TimeRange
-            time range for which data is to be downloaded.
-            Example value -  TimeRange('2007-02-14','2014-12-17')   
+    ----------
+    timerange: sunpy.time.TimeRange
+        time range for which data is to be downloaded.
+        Example value -  TimeRange('2007-02-14','2014-12-17')   
 
-        stereo_spacecraft: string   
-            Default value - ahead
-            Possible values - ahead, behind    # corresponding to spacecraft location
+    stereo_spacecraft: string   
+        Default value - ahead
+        Possible values - ahead, behind    # corresponding to spacecraft location
 
 
-        duration_of_average: string
-        Default value - 10*u.min
-            Possible values - 1*u.min, 10*u.min, 1*u.h      
-            #corresponding to duration over which data is averaged
+    duration_of_average: astropy units ( Default value - 10*u.min )
+        Possible values - 1*u.min, 10*u.min, 1*u.h      
+        #corresponding to duration over which data is averaged
     
     Examples
     --------
@@ -568,34 +568,33 @@ class SEPTLightCurve(LightCurve):
     STEREO SEPT LightCurve. 
 
     Parameters
-        ----------
-        timerange: sunpy.time.TimeRange
-            time range for which data is to be downloaded.
-            Example value -  TimeRange('2007-01-20','2015-01-01')   
+    ----------
+    timerange: sunpy.time.TimeRange
+        time range for which data is to be downloaded.
+        Example value -  TimeRange('2007-01-20','2015-01-01')   
 
-        stereo_spacecraft: string   
-            Default value - ahead
-            Possible values - ahead, behind    # corresponding to spacecraft location
+    stereo_spacecraft: string   
+        Default value - ahead
+        Possible values - ahead, behind    # corresponding to spacecraft location
 
-        duration_of_average: astropy units quantity
-        Default value - 10*u.min
-            Possible values -  1*u.min, 10*u.min, 1*u.h, 1*u.d    
-            #corresponding to duration over which data is averaged
+    duration_of_average: astropy units quantity ( Default value - 10*u.min )
+        Possible values -  1*u.min, 10*u.min, 1*u.h, 1*u.d    
+        #corresponding to duration over which data is averaged
 
-        specie:  string
-            Default value - element
-            Possible values - element, ion
+    specie: string
+        Default value - element
+        Possible values - element, ion
 
-        sensor_pointing: string
-            Default value - asun
-            Possible values - asun, sun, north, south, omni
+    sensor_pointing: string
+        Default value - asun
+        Possible values - asun, sun, north, south, omni
 
     Examples
     --------
     >>> from sunpy import lightcurve as lc
     >>> from sunpy.time import TimeRange
     >>> sept = lc.SEPTLightCurve.create(TimeRange('2012/06/01', '2012/06/05'), stereo_spacecraft = 'ahead', 
-                                                duration_of_average = 10*u.min, specie = 'element', sensor_pointing = 'asun')
+                                     duration_of_average = 10*u.min, specie = 'element', sensor_pointing = 'asun')
     >>> sept.peek()
 
     References
@@ -718,18 +717,18 @@ class HETLightCurve(LightCurve):
     STEREO HET LightCurve. 
 
     Parameters
-        ----------
-        timerange: sunpy.time.TimeRange
-            time range for which data is to be downloaded.
-            Example value -  TimeRange('2006-12-01','2015-03-01')   
-        
-        stereo_spacecraft: string   
-            Default value - ahead
-            Possible values - ahead, behind    # corresponding to spacecraft location
+    ----------
+    timerange: sunpy.time.TimeRange
+        time range for which data is to be downloaded.
+        Example value -  TimeRange('2006-12-01','2015-03-01')   
+    
+    stereo_spacecraft: string   
+        Default value - ahead
+        Possible values - ahead, behind    # corresponding to spacecraft location
 
-        duration_of_average: astropy units quantity
-            Default value - 15*u.min
-            Possible values - 1*u.min, 15*u.min, 1*u.h, 12*u.h, 1*u.d       #corresponding to duration over which data is averaged
+    duration_of_average: astropy units quantity
+        Default value - 15*u.min
+        Possible values - 1*u.min, 15*u.min, 1*u.h, 12*u.h, 1*u.d       #corresponding to duration over which data is averaged
 
     Examples
     --------
