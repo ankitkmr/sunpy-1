@@ -101,7 +101,8 @@ class LETLightCurve(LightCurve):
 
 	stereo_spacecraft: string	
 		Default value - ahead
-		Possible values - ahead, behind    # corresponding to spacecraft location
+		Possible values - ahead, behind    
+		# corresponding to spacecraft location
 
     Examples
     --------
